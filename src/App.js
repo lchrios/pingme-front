@@ -13,6 +13,7 @@ import SignOut from './components/SignOut';
 
 import { io } from "socket.io-client";
 import MainChannel from './components/MainChannel';
+import ChatSelector from './components/ChatSelector';
 
 // Initialize Firebase
 const app = initializeApp({
@@ -43,27 +44,33 @@ function App() {
 
     const [user, setUser] = useState();
     const [username, setUsername] = useState();
+    const [groups, setGroups] = useState([
+        'Selecciona el canal que deseas sintonizar',
+        'Alerts Channel',
+        'Alpha group',
+        'ZombieFuckers'
+    ]);
+    const [selectedGroup, setSelectedGroup] = useState(0);
+
+    let logout = () => {
+        setUsername(undefined);
+    }
 
     useEffect(() => {
-        console.log(user)
-    }, [user])
-
-    auth.onAuthStateChanged(user => {
-        if (user) {
-            setUser(user)
-        }
-    })
+        console.log("Selected: " + selectedGroup)
+    }, [selectedGroup])
 
     return (
         <div className="App">
-        <header>
-            <h1>⚛️🔥💬</h1>
-            <SignOut auth={auth}/>
+        <header className='top-bar'>
+            <ChatSelector groups={groups} setSelectedGroup={setSelectedGroup} username={username} />
+            <SignOut username={username} logout={logout} />
         </header>
 
         <section>
             {
                 username !== undefined 
+                // TODO: Cambiar el MainChannel por un Channel que renderize chat grupal o MainChannel dependiendo
                 ? <MainChannel auth={auth} firestore={firestore} username={username} socket={socket} /> 
                 : <SignIn auth={auth} setUsername={setUsername} setUser={setUser} />
             }

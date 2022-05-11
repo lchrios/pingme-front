@@ -3,9 +3,6 @@ import '../App.css';
 
 import { Grid, Input } from '@mui/material';
 
-import { signInWithEmailAndPassword } from 'firebase/auth';
-
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 var SignIn = ({ auth, setUser, setUsername }) => {
 
@@ -24,13 +21,17 @@ var SignIn = ({ auth, setUser, setUsername }) => {
 
     const signIn = () => {
         console.log("Iniciando sesion...")
+
         //signInWithEmailAndPassword(auth, email, password);
-        setUsername(email);
+        if (email?.length > 0) {
+            setUsername(email);
+        }
+
     }
 
   return (
     <>
-        <form>              
+        <form className='login-form'>              
             <Grid
                 container
                 direction="column"

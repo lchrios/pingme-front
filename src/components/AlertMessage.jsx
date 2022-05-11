@@ -7,7 +7,7 @@ let AlertMessage = ({ alert_data }) => {
     const { alertId, danger, reporter, alert, timestamp } = alert_data;
   
     return (<>
-        <div className={`message received`}>
+        <div className={`message alert`}>
             <Grid
                 container
                 direction="row"
@@ -70,9 +70,6 @@ let AlertMessage = ({ alert_data }) => {
                     <p>{timestamp}</p>
                 </Grid>
             </Grid>
-            
-            
-            <p>{timestamp}</p>
         </div>
     </>)
 }

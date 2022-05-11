@@ -10,7 +10,7 @@ body {
 
 .App header {
   background-color: #181717;
-  height: 10vh;
+  height: 16vh;
   min-height: 50px;
   color: white;
   position: fixed;
@@ -35,8 +35,8 @@ body {
 
 main {
   padding: 10px;
-  height: 80vh;
-  margin: 10vh 0 10vh;
+  height: 72vh;
+  margin: 10vh 0 0;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
@@ -57,7 +57,7 @@ main::-webkit-scrollbar-thumb {
 form {
   height: 10vh;
   position: relative;
-  margin-top: 20vh;
+  margin-top: 0;
   bottom: 0;
   background-color: rgb(250, 54, 90);
   width: 100%;
@@ -119,6 +119,9 @@ button:disabled {
     color: rgb(46, 0, 53);
 }
 
+.login-form {
+    margin-top: 20vh;
+}
 
 
 ul, li {
@@ -167,3 +170,16 @@ img {
   margin: 2px 5px;
 }
 
+.sign-out {
+    border-radius: 3vh;
+}
+
+.channel-selector {
+    border-radius: 5vh;
+}
+
+.alert p {
+    background: #e5e5ea;
+    color: black;
+    margin: 1vh 1vh 1vh
+}
