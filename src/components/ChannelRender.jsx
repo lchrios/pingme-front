@@ -80,15 +80,23 @@ let ChannelRender = ({ group, auth, firestore, username }) => {
     const port = 9999;
     const socket = io('http://localhost:' + port.toString())
 
-    socket.on('connect', con => {
+    socket.on('connect', () => {
         console.log('Connected to server!');
     })
 
-    socket.on('fetch', data => {
+    socket.on('fetch', new_alerts => {
         // Update alertas
+        setAlerts(alerts => {
+            let updated_alerts = alerts.concat(new_alerts);
+            return updated_alerts;
+        })
     })
-    socket.on('group', data => {
+    socket.on('group', group_messages => {
         // Update messages
+        setMessages(messages => {
+            let updated_messages = messages.concat(group_messages);
+            return updated_messages;
+        })
     })
     useEffect(() => {
         socket.emit('fetch');
