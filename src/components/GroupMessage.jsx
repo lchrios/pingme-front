@@ -3,11 +3,13 @@ import React from 'react';
 import '../App.css';
 
 
-let AlertMessage = ({ alert_data }) => {
-    const { alertId, danger, reporter, alert, timestamp } = alert_data;
-    
+let GroupMessage = ({ message_data, username }) => {
+    const { msg, from, timestamp } = message_data;
+  
+    const messageClass = username === from ? 'sent' : 'received';
+
     return (<>
-        <div className={`message alert`}>
+        <div className={`message ${messageClass}`}>
             <Grid
                 container
                 direction="row"
@@ -18,7 +20,7 @@ let AlertMessage = ({ alert_data }) => {
                     item
                     xs={2}
                 >
-                    <p>A# {alertId}</p>
+                    <img src={'assets/alert.png'} alt="alerta"/>
                 </Grid>
                 <Grid
                     item
@@ -34,7 +36,7 @@ let AlertMessage = ({ alert_data }) => {
                             item
                             xs={12}
                         >
-                            <p>{alert}</p>
+                            <p>{msg}</p>
                         </Grid>
                         <Grid 
                             item
@@ -48,16 +50,10 @@ let AlertMessage = ({ alert_data }) => {
                             >
                                  <Grid 
                                     item
-                                    xs={8}
+                                    xs={12}
                                 >
-                                    <p>Reportado por: {reporter}</p>
-                                </Grid>
-                                <Grid 
-                                    item
-                                    xs={4}
-                                >
-                                    <p>Peligro: {danger}</p>
-                                </Grid>     
+                                    <p>Reportado por: {from}</p>
+                                </Grid>    
                             </Grid>
                             
                         </Grid>
@@ -74,4 +70,4 @@ let AlertMessage = ({ alert_data }) => {
     </>)
 }
 
-export default AlertMessage
+export default GroupMessage

@@ -1,22 +1,28 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
-let ChatSelector = ({ groups, setSelectedGroup, username }) => {
+const group_names = [
+    'Selecciona el canal que deseas sintonizar',
+    'Alerts Channel',
+    'Alpha group',
+    'ZombieFuckers'
+];
+
+let ChatSelector = ({ group, setGroup, username }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(group);
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
+    setGroup(index);
     setAnchorEl(null);
-    setSelectedGroup(groups[index])
   };
 
   const handleClose = () => {
@@ -41,7 +47,7 @@ let ChatSelector = ({ groups, setSelectedGroup, username }) => {
         >
           <ListItemText
             primary="Canal activo"
-            secondary={groups[selectedIndex]}
+            secondary={group_names[group]}
           />
         </ListItem>
       </List>
@@ -55,7 +61,7 @@ let ChatSelector = ({ groups, setSelectedGroup, username }) => {
           role: 'listbox',
         }}
       >
-        {groups.map((option, index) => (
+        {group_names.map((option, index) => (
           <MenuItem
             key={option}
             disabled={index === 0}

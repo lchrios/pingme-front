@@ -8,12 +8,10 @@ import 'firebase/auth';
 import 'firebase/analytics';
 
 import SignIn from './components/SignIn';
-import ChatRoom from './components/ChatRoom';
 import SignOut from './components/SignOut';
 
-import { io } from "socket.io-client";
-import MainChannel from './components/MainChannel';
 import ChatSelector from './components/ChatSelector';
+import ChannelRender from './components/ChannelRender';
 
 // Initialize Firebase
 const app = initializeApp({
@@ -30,40 +28,19 @@ const auth = getAuth(app);
 
 function App() {
 
-    const port = 9999;
-    const socket = io('http://localhost:'+port.toString())
-
-    socket.on('connect', () => {
-
-    })
-
-    socket.on('from', () => {})
-    socket.on('fetch', () => {})
-    socket.on('group', () => {})
-    socket.on('users', () => {})    
-
-    const [user, setUser] = useState();
     const [username, setUsername] = useState();
-    const [groups, setGroups] = useState([
-        'Selecciona el canal que deseas sintonizar',
-        'Alerts Channel',
-        'Alpha group',
-        'ZombieFuckers'
-    ]);
-    const [selectedGroup, setSelectedGroup] = useState(0);
+    const [group, setGroup] = useState(1);
+    
 
     let logout = () => {
         setUsername(undefined);
     }
 
-    useEffect(() => {
-        console.log("Selected: " + selectedGroup)
-    }, [selectedGroup])
-
+    useEffect(() => {console.log("Group: " + group)}, [group])
     return (
         <div className="App">
         <header className='top-bar'>
-            <ChatSelector groups={groups} setSelectedGroup={setSelectedGroup} username={username} />
+            <ChatSelector setGroup={setGroup} group={group} username={username} />
             <SignOut username={username} logout={logout} />
         </header>
 
@@ -71,8 +48,8 @@ function App() {
             {
                 username !== undefined 
                 // TODO: Cambiar el MainChannel por un Channel que renderize chat grupal o MainChannel dependiendo
-                ? <MainChannel auth={auth} firestore={firestore} username={username} socket={socket} /> 
-                : <SignIn auth={auth} setUsername={setUsername} setUser={setUser} />
+                ? <ChannelRender auth={auth} firestore={firestore} username={username}  group={group} /> 
+                : <SignIn auth={auth} setUsername={setUsername} />
             }
         </section>
 
