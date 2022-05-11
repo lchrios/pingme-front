@@ -1,13 +1,10 @@
 import React, { useRef, useState } from 'react';
 import '../App.css';
 
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChatMessage from './ChatMessage';
-import { io } from 'socket.io-client';
 
 
-
-let ChatRoom = ({ auth, username, socket }) => {
+let MainChannel = ({ auth, username, socket }) => {
     
     const [group, setGroup] = useState()
     const [messages, setMessages] = useState([
@@ -70,4 +67,4 @@ let ChatRoom = ({ auth, username, socket }) => {
     </>)
   }
 
-export default ChatRoom
+export default MainChannel

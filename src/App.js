@@ -12,6 +12,7 @@ import ChatRoom from './components/ChatRoom';
 import SignOut from './components/SignOut';
 
 import { io } from "socket.io-client";
+import MainChannel from './components/MainChannel';
 
 // Initialize Firebase
 const app = initializeApp({
@@ -63,7 +64,7 @@ function App() {
         <section>
             {
                 username !== undefined 
-                ? <ChatRoom auth={auth} firestore={firestore} username={username} socket={socket} /> 
+                ? <MainChannel auth={auth} firestore={firestore} username={username} socket={socket} /> 
                 : <SignIn auth={auth} setUsername={setUsername} setUser={setUser} />
             }
         </section>
