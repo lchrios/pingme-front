@@ -140,6 +140,9 @@ p {
 .message {
   display: flex;
   align-items: center;
+  background: rgb(250, 54, 90);
+  border-radius: 3vh;
+  margin: 3vh
 }
 
 

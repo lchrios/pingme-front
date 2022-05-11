@@ -1,14 +1,33 @@
 import React, { useRef, useState } from 'react';
 import '../App.css';
 
-import ChatMessage from './ChatMessage';
+import AlertMessage from './AlertMessage';
 
 
 let MainChannel = ({ auth, username, socket }) => {
     
-    const [group, setGroup] = useState()
-    const [messages, setMessages] = useState([
-        // TODO: Asignar valores 
+    const [alerts, setAlerts] = useState([
+        {
+            'alertId': 1,
+            'reporter': username,
+            'alert': 'Zombies cayendo a la base',
+            'danger': 'medio',
+            'timestamp': new Date().toISOString,
+        },
+        {
+            'alertId': 2,
+            'reporter': username,
+            'alert': 'Supervivientes encontrads',
+            'danger': 'medio',
+            'timestamp': new Date(new Date().getTime() + 3*60*1000).toISOString,
+        },
+        {
+            'alertId': 3,
+            'reporter': username,
+            'alert': 'Alianza con otra comunidad',
+            'danger': 'medio',
+            'timestamp': new Date(new Date().getTime() + 6*60*1000).toISOString,
+        },
     ]);
 
     const dummy = useRef();
@@ -19,45 +38,35 @@ let MainChannel = ({ auth, username, socket }) => {
         socket.emit('fetch');
     }
 
-    let sendMessageToGroup = (group, msg) => {
-        socket.emit('group', {
-            "group": group,
-            "msg": msg,
-            "timestamp": new Date().toISOString
-        })
-    }
-
-    let getConnectedUsers = () => {
-        socket.emit('users')
-    }
-  
-  
-    const sendMessage = async (e) => {
+    let sendAlert = (e) => {
         e.preventDefault();
-        
-        let msg_data = {
-            "group": group,
-            "from": username,
-            "msg": e.target.value,
-            "timestapm": new Date().toISOString
+
+        let alert_data = {
+            'alertId': alerts.length,
+            'reporter': username,
+            'alert': formValue,
+            'danger': 'medio',
+            'timestamp': new Date().toISOString
         }
 
-        messages.push(msg_data)
-
-        setFormValue('');
-        dummy.current.scrollIntoView({ behavior: 'smooth' });
+        setAlerts(alerts => {
+            let updated_alerts = alerts.concat(alert_data)
+            return updated_alerts
+        })
+        socket.emit('alert', alert_data)
     }
+
   
     return (<>
         <main>
   
-            {messages && messages.map(msg => <ChatMessage auth={auth} key={msg.id} message={msg} />)}
+            {alerts && alerts.map(alrt => <AlertMessage auth={auth} key={alrt.alertId} alert_data={alrt} />)}
     
             <span ref={dummy}></span>
     
         </main>
     
-        <form onSubmit={sendMessage}>
+        <form onSubmit={sendAlert}>
     
             <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
     
