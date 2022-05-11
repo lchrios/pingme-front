@@ -59,7 +59,7 @@ form {
   position: relative;
   margin-top: 20vh;
   bottom: 0;
-  background-color: rgb(24, 23, 23);
+  background-color: rgb(250, 54, 90);
   width: 100%;
   max-width: 728px;
   display: table;
@@ -103,11 +103,21 @@ button:disabled {
 
 .sign-in {
   color: #282c34;
-  background: white;
-  max-width: 400px;
-  margin: 0 auto;
+  background: rgb(255, 204, 84);
+  width: 50%;
+  margin: 5vh;
+
+  border-radius: 3vh;
 }
 
+.login-input {
+    margin: 2vh;
+    color: rgb(255, 239, 239);
+}
+
+.login-label {
+    color: rgb(46, 0, 53);
+}
 
 
 
