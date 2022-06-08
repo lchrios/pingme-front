@@ -30,7 +30,7 @@ body {
   flex-direction: column;
   justify-content: normal;
   min-height: 100vh;
-  background-color: rgb(40, 37, 53);
+  background-color: rgb(237, 237, 237);
 }
 
 main {
@@ -57,7 +57,7 @@ main::-webkit-scrollbar-thumb {
 form {
   height: 10vh;
   position: relative;
-  margin-top: 0;
+  margin-top: -10;
   bottom: 0;
   background-color: rgb(250, 54, 90);
   width: 100%;
@@ -143,9 +143,9 @@ p {
 .message {
   display: flex;
   align-items: center;
-  background: rgb(250, 54, 90);
-  border-radius: 3vh;
-  margin: 3vh
+  background: rgb(214, 214, 214);
+  border-radius: 2vh;
+  margin: 2vh
 }
 
 
@@ -154,13 +154,21 @@ p {
 }
 
 .sent p {
-  color: white;
-  background: #0b93f6;
-  align-self: flex-end;
+  color: rgb(255, 255, 255);
+  background: #87ff87;
+  float: right;
+  text-align: end;
+  max-width: fit-content;
+}
+
+.sentTitle {
+    float: right;
 }
 .received p {
-  background: #e5e5ea;
+  background: #fffdcb;
   color: black;
+  text-align: start;
+  max-width: fit-content;
 }
 
 img {
@@ -175,7 +183,7 @@ img {
 }
 
 .channel-selector {
-    border-radius: 5vh;
+    border-radius: 0vh;
 }
 
 .alert p {

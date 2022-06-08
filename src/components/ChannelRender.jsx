@@ -3,7 +3,8 @@ import '../App.css';
 import AlertMessage from './AlertMessage';
 import GroupMessage from './GroupMessage';
 
-import { connect, io } from "socket.io-client";
+import { io } from "socket.io-client";
+import { List } from '@mui/material';
 
 
 let ChannelRender = ({ group, auth, firestore, username }) => {
@@ -11,23 +12,23 @@ let ChannelRender = ({ group, auth, firestore, username }) => {
     const alerts_data = [
         {
             'alertId': 1,
-            'reporter': username,
+            'reporter': "Joel2",
             'alert': 'Zombies cayendo a la base',
-            'danger': 'medio',
+            'danger': 'alto',
             'timestamp': new Date(new Date().getTime() - 9*60*1000).toLocaleDateString('es-MX',options),
         },
         {
             'alertId': 2,
             'reporter': username,
-            'alert': 'Supervivientes encontrads',
-            'danger': 'medio',
+            'alert': 'Supervivientes encontrados',
+            'danger': 'mbxedio',
             'timestamp': new Date(new Date().getTime() - 6*60*1000).toLocaleDateString('es-MX',options),
         },
         {
             'alertId': 3,
-            'reporter': username,
+            'reporter': "Rick R.",
             'alert': 'Alianza con otra comunidad',
-            'danger': 'medio',
+            'danger': 'bajo',
             'timestamp': new Date(new Date().getTime() - 3*60*1000).toLocaleDateString('es-MX', options),
         },
     ];
@@ -78,7 +79,7 @@ let ChannelRender = ({ group, auth, firestore, username }) => {
     const [msg, setMsg] = useState('');
 
     const port = 9999;
-    const socket = io('http://localhost:' + port.toString())
+    const socket = io('http://localhost:' + port)
 
     socket.on('connect', () => {
         console.log('Connected to server!');
@@ -117,8 +118,9 @@ let ChannelRender = ({ group, auth, firestore, username }) => {
         }
 
         setAlerts(alerts => {
-            let updated_alerts = alerts.concat(alert_data)
-            return updated_alerts.sort((al1, al2) => new Date(al1.timestamp) - new Date(al2.timestamp))
+            let updated_alerts = alerts.concat(alert_data).sort((al1, al2) => new Date(al1.timestamp) - new Date(al2.timestamp))
+            console.log(updated_alerts)
+            return updated_alerts;
         })
 
         socket.emit('alert', alert_data)
@@ -149,13 +151,17 @@ let ChannelRender = ({ group, auth, firestore, username }) => {
     }
   
     return (<>
-        <main>
+        <main
+            style={{
+                marginTop: "15vh"
+            }}
+        >
             {
                 group === 1
-                ?   <>{ alerts && alerts
+                ?   <List>{ alerts && alerts
                         .reverse()
                         .map(alrt => <AlertMessage key={alrt.alertId} alert_data={alrt} />) 
-                    }</>
+                    }</List>
                 :   <>{ messages && messages
                             .filter(message => message.group === group)
                             .map((message, i) => <GroupMessage key={i} message_data={message} username={username} />) 
@@ -164,7 +170,7 @@ let ChannelRender = ({ group, auth, firestore, username }) => {
             <span ref={dummy}></span>
         </main>
     
-        <form onSubmit={group === 0 ? sendAlert : sendMessageToGroup }>
+        <form onSubmit={group === 1 ? sendAlert : sendMessageToGroup }>
     
             <input value={msg} onChange={(e) => setMsg(e.target.value)} placeholder="¿Alguna nueva alerta?" />
     
@@ -175,7 +181,6 @@ let ChannelRender = ({ group, auth, firestore, username }) => {
 }
 
 export default ChannelRender;
-
 
 
 let options = { 

@@ -4,6 +4,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { Typography } from '@mui/material';
 
 const group_names = [
     'Selecciona el canal que deseas sintonizar',
@@ -34,7 +35,7 @@ let ChatSelector = ({ group, setGroup, username }) => {
       <List
         component="nav"
         aria-label="Canal activo"
-        sx={{ bgcolor: 'rgb(150, 150, 150)', color: '#A53952' }}
+        sx={{ bgcolor: 'rgb(24, 23, 23)', color: '#A53952', margin: '0 0 0 0' }}
       >
         <ListItem
           button
@@ -46,8 +47,23 @@ let ChatSelector = ({ group, setGroup, username }) => {
           onClick={handleClickListItem}
         >
           <ListItemText
+
             primary="Canal activo"
-            secondary={group_names[group]}
+            secondary={
+                <React.Fragment>
+                <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="primary.light"
+                >
+                    {group_names[group]}
+                </Typography>
+            </React.Fragment>
+            }
+            sx={{
+                marginBottom: "0vh"
+            }}
           />
         </ListItem>
       </List>

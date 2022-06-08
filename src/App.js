@@ -33,26 +33,24 @@ function App() {
     
 
     let logout = () => {
-        setUsername(undefined);
+        setTimeout(() => setUsername(undefined), 1000 * Math.random() + 300)
     }
 
     useEffect(() => {console.log("Group: " + group)}, [group])
     return (
         <div className="App">
-        <header className='top-bar'>
-            <ChatSelector setGroup={setGroup} group={group} username={username} />
-            <SignOut username={username} logout={logout} />
-        </header>
+            <header className='top-bar'>
+                <ChatSelector setGroup={setGroup} group={group} username={username} />
+                <SignOut username={username} logout={logout} />
+            </header>
 
-        <section>
-            {
-                username !== undefined 
-                // TODO: Cambiar el MainChannel por un Channel que renderize chat grupal o MainChannel dependiendo
-                ? <ChannelRender auth={auth} firestore={firestore} username={username}  group={group} /> 
-                : <SignIn auth={auth} setUsername={setUsername} />
-            }
-        </section>
-
+            <section className="canvas">
+                {
+                    username !== undefined 
+                    ?   <ChannelRender auth={auth} firestore={firestore} username={username}  group={group} /> 
+                    :   <SignIn auth={auth} setUsername={setUsername} />
+                }
+            </section>
         </div>
     );
 }
