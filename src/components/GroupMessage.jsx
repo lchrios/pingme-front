@@ -51,6 +51,7 @@ let GroupMessage = ({ message_data, username }) => {
                         : <SecurityIcon color="info"/> 
                 }
             </ListItemIcon>}
+            <Divider sx={{marginY: "1vh"}} />
                     </React.Fragment>
                 }
                 secondary={
